@@ -26,6 +26,10 @@
             <h1 class="text-3xl font-bold text-white" >{{ $header }}</h1>
         </div>
     @endisset
+    <x-navigation>
+        <x-nav-link href="/" :active="request()->is('/')" >Home</x-nav-link>
+        <x-nav-link href="/jobs" :active="request()->is('/jobs')" >Jobs</x-nav-link>
+    </x-navigation>
     {{ $slot }}
 </body>
 </html>

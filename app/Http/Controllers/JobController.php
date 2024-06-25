@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Job;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class JobController
@@ -29,7 +29,7 @@ class JobController
         return view('jobs.create');
     }
 
-    public function store(\Illuminate\Http\Request $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         //authorize
         //validate
@@ -51,18 +51,26 @@ class JobController
         ]);
     }
 
-    public function update(): Redirect
+    public function update(Request $request, Job $job): RedirectResponse
     {
         //authorize
         //validate
+        $request->validate([
+            'name' => ['required', 'min:3'],
+            'salary' => ['required']
+        ]);
         //edit and persist
+        Job::query()->find($job)->update(['name' => $request->post('name'), 'salary' => $request->post('salary')]);
         //redirect
+        return redirect("/jobs/$job->id");
     }
 
-    public function destroy(): Redirect
+    public function destroy(Job $job): RedirectResponse
     {
         //authorize
         //delete and persist
+        $job->delete();
         //redirect
+        return redirect("/jobs/$job->id");
     }
 }
