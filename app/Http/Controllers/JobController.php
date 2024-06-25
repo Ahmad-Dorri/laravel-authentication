@@ -60,9 +60,9 @@ class JobController
             'salary' => ['required']
         ]);
         //edit and persist
-        Job::query()->find($job)->update(['name' => $request->post('name'), 'salary' => $request->post('salary')]);
+        $job->update(['name' => $request->post('name'), 'salary' => $request->post('salary')]);
         //redirect
-        return redirect("/jobs/$job->id");
+        return redirect("/jobs");
     }
 
     public function destroy(Job $job): RedirectResponse
@@ -71,6 +71,6 @@ class JobController
         //delete and persist
         $job->delete();
         //redirect
-        return redirect("/jobs/$job->id");
+        return redirect("/jobs");
     }
 }
