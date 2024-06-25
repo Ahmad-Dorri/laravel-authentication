@@ -8,4 +8,7 @@
             </li>
         @endforeach
     </ul>
+    <x-link href="/jobs/create" class="mt-4">
+        Create
+    </x-link>
 </x-layout>

@@ -32,6 +32,7 @@ class JobController
     public function store(Request $request): RedirectResponse
     {
         //authorize
+        $employer_id = 1;
         //validate
         $request->validate([
             'name' => ['required', 'min:3'],
@@ -39,7 +40,7 @@ class JobController
         ]);
 
         //create and persist
-        Job::query()->create(['name' => $request->post('name'), 'salary' => $request->post('salary')]);
+        Job::query()->create(['name' => $request->post('name'), 'salary' => $request->post('salary'), 'employer_id' => $employer_id]);
         //redirect
         return redirect('/jobs');
     }
@@ -54,13 +55,14 @@ class JobController
     public function update(Request $request, Job $job): RedirectResponse
     {
         //authorize
+        $employer_id = 1;
         //validate
         $request->validate([
             'name' => ['required', 'min:3'],
             'salary' => ['required']
         ]);
         //edit and persist
-        $job->update(['name' => $request->post('name'), 'salary' => $request->post('salary')]);
+        $job->update(['name' => $request->post('name'), 'salary' => $request->post('salary'), 'employer_id' => $employer_id]);
         //redirect
         return redirect("/jobs");
     }
