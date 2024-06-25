@@ -21,6 +21,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased">
+    @isset($header)
+        <div class="bg-slate-500 w-full px-10 py-12" >
+            <h1 class="text-3xl font-bold text-white" >{{ $header }}</h1>
+        </div>
+    @endisset
     {{ $slot }}
 </body>
 </html>
