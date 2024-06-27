@@ -4,7 +4,7 @@
             @csrf
             <div class="flex flex-col gap-2" >
                 <x-form-label for="email">Email :</x-form-label>
-                <x-form-input type="email" name="email" id="email" placeholder="JohnDoe@gmail.com"/>
+                <x-form-input type="email" name="email" id="email" placeholder="JohnDoe@gmail.com" :value="old('email')" />
                 <x-form-error name="email"/>
             </div>
             <div class="flex flex-col gap-2" >

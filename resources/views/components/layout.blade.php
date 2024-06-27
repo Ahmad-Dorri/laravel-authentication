@@ -37,6 +37,14 @@
             <x-nav-link href="/register" :active="request()->is('/register')">Register</x-nav-link>
         </div>
     @endguest
+    @auth
+        <form method="post" action="/logout" >
+            @csrf
+            <x-button type="submit" >
+                Logout
+            </x-button>
+        </form>
+    @endauth
 </x-navigation>
 {{ $slot }}
 </body>
