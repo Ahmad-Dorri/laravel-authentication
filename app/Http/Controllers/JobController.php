@@ -58,7 +58,7 @@ class JobController
     public function update(Request $request, Job $job): RedirectResponse
     {
         //authorize
-        Gate::authorize('edit-job', $job);
+        Gate::authorize('edit', $job);
         //validate
         $request->validate([
             'name' => ['required', 'min:3'],
@@ -73,7 +73,7 @@ class JobController
     public function destroy(Job $job): RedirectResponse
     {
         //authorize
-        Gate::authorize('edit-job', $job);
+        Gate::authorize('edit', $job);
         //delete and persist
         $job->delete();
         //redirect

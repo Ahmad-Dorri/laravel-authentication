@@ -22,8 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('edit-job', function (User $user, Job $job) {
-            return $user->id === $job->employer->user->id;
-        });
+//        Gate::define('edit-job', function (User $user, Job $job) {
+//            return $user->id === $job->employer->user->id;
+//        });
     }
 }
