@@ -20,7 +20,7 @@ class SessionController extends Controller
     {
         // rate limit
 
-        if (RateLimiter::tooManyAttempts('login', $perMinute = 1)) {
+        if (RateLimiter::tooManyAttempts('login', 5)) {
             $seconds = RateLimiter::availableIn('login');
             throw ValidationException::withMessages([
                 'email' => 'Rate limit. You can try again in '.$seconds.' seconds'
