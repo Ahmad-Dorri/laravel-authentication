@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\JobCreated;
 use App\Models\Employer;
 use App\Models\Job;
 use Illuminate\Http\RedirectResponse;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class JobController
@@ -43,8 +45,9 @@ class JobController
 
         //create and persist
         $employer_id = DB::table('employers')->where('user_id', Auth::user()->id)->first()->id;
-        Job::query()->create(['name' => $request->post('name'), 'salary' => $request->post('salary'), 'employer_id' => $employer_id]);
+        $job = Job::query()->create(['name' => $request->post('name'), 'salary' => $request->post('salary'), 'employer_id' => $employer_id]);
         //redirect
+        Mail::to($request->user()->email)->send(new JobCreated($job));
         return redirect('/jobs');
     }
 
