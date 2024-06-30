@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\View\View;
 
 class JobController
@@ -47,7 +48,7 @@ class JobController
         $employer_id = DB::table('employers')->where('user_id', Auth::user()->id)->first()->id;
         $job = Job::query()->create(['name' => $request->post('name'), 'salary' => $request->post('salary'), 'employer_id' => $employer_id]);
         //redirect
-        Mail::to($request->user()->email)->send(new JobCreated($job));
+        Mail::to($request->user()->email)->queue(new JobCreated($job));
         return redirect('/jobs');
     }
 
