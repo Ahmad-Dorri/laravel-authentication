@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\TranslateJob;
 use App\Mail\JobCreated;
 use App\Models\Employer;
 use App\Models\Job;
@@ -47,8 +48,9 @@ class JobController
         //create and persist
         $employer_id = DB::table('employers')->where('user_id', Auth::user()->id)->first()->id;
         $job = Job::query()->create(['name' => $request->post('name'), 'salary' => $request->post('salary'), 'employer_id' => $employer_id]);
-        //redirect
         Mail::to($request->user()->email)->queue(new JobCreated($job));
+        TranslateJob::dispatch($job);
+        //redirect
         return redirect('/jobs');
     }
 
